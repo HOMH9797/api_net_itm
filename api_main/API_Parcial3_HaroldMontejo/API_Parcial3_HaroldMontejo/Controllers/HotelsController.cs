@@ -7,7 +7,7 @@ namespace API_Parcial3_HaroldMontejo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HotelsController : Controller
+    public class HotelsController : ControllerBase
     {
         private readonly IHotelsService _hotelsService;
         public HotelsController(IHotelsService hotelsService)

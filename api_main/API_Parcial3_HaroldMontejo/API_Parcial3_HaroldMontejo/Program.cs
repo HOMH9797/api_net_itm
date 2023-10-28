@@ -1,4 +1,6 @@
 using API_Parcial3_HaroldMontejo.DAL;
+using API_Parcial3_HaroldMontejo.Domain.Interfaces;
+using API_Parcial3_HaroldMontejo.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -16,7 +18,7 @@ builder.Services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(b
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-
+builder.Services.AddScoped<IHotelsService, HotelsService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
