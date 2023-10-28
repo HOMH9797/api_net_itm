@@ -7,6 +7,8 @@ namespace web_api_2023_II.DAL.Entities
         [Display(Name = "País")]
         [MaxLength(50, ErrorMessage ="El campo {0} debe tener máximo {1} caracteres")]
         [Required(ErrorMessage ="!El campo {0} es obligatorio!")]
-        public string Name{ get; set;} 
+        public string Name{ get; set;}
+        [Display(Name = "Estados")]
+        public ICollection<State>? States { get; set; }
     }
 }
