@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 using web_api_2023_II.DAL.Entities;
 using web_api_2023_II.Domain.Interfaces;
 
@@ -63,6 +64,36 @@ namespace web_api_2023_II.Controllers
             var country = await _countryService.GetCountryByNameAsync(name);
             if (country == null) return NotFound();
             return Ok(country);
+        }
+        [HttpPut, ActionName("Edit")]
+        [Route("Edit")]
+        public async Task<ActionResult<Country>> EditCountryAsync(Country country)
+        {
+            try
+            {
+                var editedCountry = await _countryService.EditCountryAsync(country);
+                return Ok(editedCountry);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("duplicate"))
+                    return Conflict(String.Format("{0} ya existe", country.Name));
+
+                return Conflict(ex.Message);
+            }
+        }
+
+        [HttpDelete, ActionName("Delete")]
+        [Route("Delete")]
+        public async Task<ActionResult<Country>> DeleteCountryAsync(Guid id)
+        {
+            if (id == null) return BadRequest("Id es requerido!");
+
+            var deletedCountry = await _countryService.DeleteCountryAsync(id);
+
+            if (deletedCountry == null) return NotFound("Pais no encontrado!");
+
+            return Ok(deletedCountry);
         }
     }
 }
